@@ -1,6 +1,6 @@
 const functions = require('@google-cloud/functions-framework');
 const mailgun = require('mailgun-js');
-import EamilTracker from '../models/email-tracker.js';
+const EmailTracker = require('./models/email-tracker.js');
 
 // Register a CloudEvent callback with the Functions Framework that will
 // be executed when the Pub/Sub trigger topic receives a message.
@@ -87,7 +87,7 @@ console.log(`data3 : ${data.verificationLink}`);
     console.log("emailData", emailData);
 
     // Save email data to the MySQL database using Sequelize
-    await EamilTracker.create({
+    await EmailTracker.create({
       to_address: data.email_id,
       result_id: result.id
     });

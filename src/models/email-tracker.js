@@ -1,8 +1,8 @@
-import sequelize from '../config/db-config.js'; 
-import Sequelize, {DataTypes} from 'sequelize';
-import { v4 as uuidv4 } from 'uuid';
+const sequelize = require('../config/db-config.js');
+const { Sequelize, DataTypes } = require('sequelize');
+const { v4: uuidv4 } = require('uuid');
 
-const EamilTracker = sequelize.define("email-tracker",
+const EmailTracker = sequelize.define("email-tracker",
   {
     id: {
       type: Sequelize.INTEGER,
@@ -26,4 +26,4 @@ const EamilTracker = sequelize.define("email-tracker",
   updatedAt: 'account_updated'
 });
 
-export default EamilTracker;
+module.exports = EmailTracker;
