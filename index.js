@@ -1,6 +1,6 @@
 const functions = require('@google-cloud/functions-framework');
 const mailgun = require('mailgun-js');
-const EmailTracker = require('./models/email-tracker.js');
+const EmailTracker = require('./src/models/email-tracker.js');
 
 // Register a CloudEvent callback with the Functions Framework that will
 // be executed when the Pub/Sub trigger topic receives a message.
