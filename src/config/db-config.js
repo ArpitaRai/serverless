@@ -1,7 +1,6 @@
-import dotenv from 'dotenv';
-import { Sequelize } from 'sequelize';
+const dotenv = require('dotenv');
+const { Sequelize } = require('sequelize');
 dotenv.config();
-
 
 const sequelize = new Sequelize(process.env.MYSQL_DATABASE || 'nodeexpressmysql', process.env.MYSQL_USER, process.env.MYSQL_PASSWORD, {
     host: process.env.MYSQL_HOST,
@@ -27,6 +26,6 @@ sequelize.authenticate()
 })
 
 
-export default sequelize;
+module.exports= sequelize;
 
 
