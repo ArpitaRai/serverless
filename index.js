@@ -10,7 +10,7 @@ functions.cloudEvent('userVerification', async (cloudEvent) => {
     const base64name = cloudEvent.data.message.data;
 
     // Create a new instance of Mailgun with the API key
-    const mg = mailgun({ apiKey: 'a693158473725a3b69c55bdd32761689-f68a26c9-cf4f416d', domain: 'mail.arpitara.me' });
+    const mg = mailgun({ apiKey: process.env.API_KEY, domain: process.env.MAIL_DOMAIN });
 
     const name = base64name
       ? Buffer.from(base64name, 'base64').toString()
@@ -29,7 +29,7 @@ console.log(`data3 : ${data.verificationLink}`);
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello You awesome person!</title>
+    <title>Hello you awesome person!</title>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -72,13 +72,19 @@ console.log(`data3 : ${data.verificationLink}`);
     </body>
     </html>`;
 
+
     // Send email using Mailgun
     const result = await mg.messages().send({
-      from: "rai.a@northeastern.edu",
+      from: "Excited User <mailgun@sandbox-123.mailgun.org>",
       to: `${data.email_id}`,
-      subject: "Hello you awesome person!",
+      subject: "Account Verification Link!",
+      text: "Testing some Mailgun awesomeness!",
       html: htmlContent // Pass the HTML content as a string
     });
+
+
+    const expiryTime = new Date();
+    expiryTime.setMinutes(expiryTime.getMinutes() + 2);
 
     const emailData = {
       result: result.id,
@@ -89,7 +95,9 @@ console.log(`data3 : ${data.verificationLink}`);
     // Save email data to the MySQL database using Sequelize
     await EmailTracker.create({
       to_address: data.email_id,
-      result_id: result.id
+      result_id: result.id,
+      verification_link: data.verificationLink,
+      expiry_time: expiryTime
     });
 
     console.log(result);
@@ -97,3 +105,5 @@ console.log(`data3 : ${data.verificationLink}`);
     console.error('Failed to send email:', error);
   }
 });
+
+
