@@ -24,7 +24,7 @@ console.log(`data2 : ${data.email_id}`);
 console.log(`data3 : ${data.verificationLink}`);
 
     // HTML content for the email body
-    const htmlContent = `<!DOCTYPE html>
+    const htmlContent1 = `<!DOCTYPE html>
     <html lang="en">
     <head>
     <meta charset="UTF-8">
@@ -72,7 +72,17 @@ console.log(`data3 : ${data.verificationLink}`);
     </body>
     </html>`;
 
-
+    let htmlContent = `<html>
+    <body>
+      <h1>Welcome to Cloud Assignment!</h1>
+      <p>Thank you for signing up. Please click the following link to verify your email:</p>
+      <a href= ${data.verificationLink} >Verify Email</a>
+      <p>If you are unable to click the link, you can copy and paste it into your browser's address bar.</p>
+      <p>We're excited to have you on board!</p>
+      <h3>Thanks<h3>
+      <p>Cloud  team</p>
+    </body>`;
+    
     // Send email using Mailgun
     const result = await mg.messages().send({
       from: "Excited User <mailgun@sandbox-123.mailgun.org>",
