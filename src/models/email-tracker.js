@@ -19,11 +19,21 @@ const EmailTracker = sequelize.define("email-tracker",
       type: Sequelize.STRING,
       allowNull: false,
     },
+    expiry_time: {
+      type: DataTypes.DATE, // Assuming expiry_time is of type DATE
+      allowNull: false
+    },
+    verification_link:{
+      type: Sequelize.STRING,
+      allowNull: false
+  }
+  
     
 },{
   timestamps: true, // Add timestamps to the table
-  createdAt: 'account_created', 
-  updatedAt: 'account_updated'
+  createdAt: 'email_created',
+
 });
 
 module.exports = EmailTracker;
+
